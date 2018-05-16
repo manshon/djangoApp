@@ -1,0 +1,15 @@
+html, body {
+    height: 100%;
+}
+
+li {
+    list-style: none;
+}
+
+div.layout {
+    height: 100%;
+}
+
+body > div.layout {
+    height: auto;
+}

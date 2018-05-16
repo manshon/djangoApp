@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+
+<div class="container row py-4">
+
+{#<div class="col-col-md-4">#}
+{#<h1>I am a hero</h1>#}
+{#</div>#}
+<aside class="col-12 col-md-4">
+<div class="list-group">
+    <a class="list-group-item">1</a>
+    <a class="list-group-item">2</a>
+    <a class="list-group-item">3</a>
+</div>
+</aside>
+
+{#main#}
+<main class="col-12 col-md-8">
+{% for post in posts %}
+    <div class="card mb-5">
+    <div class="card-header bg-success display-5">
+        <a href="{% url 'posts:detail' post_id=post.id %}">{{ post.title }}</a>({{ post.published }})
+        <span class="badge badge-pill pull-right badge-info">{{ post.after_days }}日前</span>
+    </div>
+    <div class="card-body row">
+        <div class="col-xs-12 col-sm-6 text-center">
+            <img src="{{ post.image.url }}" class="img-fluid rounded">
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            {{ post.summary }}
+            <a href="{% url 'posts:detail' post.id %}" class="btn btn-outline-success btn-block">続きを読む</a>
+        </div>
+        <br /><br />
+    </div>
+    </div>
+{% empty %}
+    <li>記事が存在しません</li>
+{% endfor %}
+</main>
+</div>
+{% endblock %}

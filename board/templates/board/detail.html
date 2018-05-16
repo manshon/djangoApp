@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load board_tag %}
+{% load widget_tweaks %}
+
+{% block title %}Board Detail{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+
+<div class="card">
+    <div class="card-header">
+        {{ board.title }}
+    </div>
+    <div class="card-body">
+        {{ board.body | urlize | linebreaksbr | url_target_blank }}
+        <hr />
+
+        {% for comment in comments %}
+        <div class="pb-3">
+            {{ comment.counter }}   {{ comment.user.username }}: {{ comment.created_at }}
+            <br/>
+            {{ comment.body | urlize | linebreaks }}
+            <hr />
+        </div>
+        {% endfor %}
+
+
+        <form method="post" action="{% url 'board:detail' board.id %}">
+            {% for field in form.visible_fields %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+                {{ field |add_class:"form-control w-100" }}
+                {{ field.errors |add_error_class:"form-control" }}
+            </div>
+            {% endfor %}
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="btn btn-info pull-right" type="submit" value="書き込む" />
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

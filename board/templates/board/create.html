@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Board Creation{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <ul class="my-4">
+        <form action="{% url 'board:create' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <input type="submit" value="作成" class="btn btn-success" />
+        </form>
+    </ul>
+</div>
+
+
+{% endblock %}
